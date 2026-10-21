@@ -5,8 +5,6 @@ class Solution {
         int row = maps.length;
         int col = maps[0].length;
         
-        if (row == 1 && col == 1) return 1;
-        
         int[][] grid = new int[row][col];
         boolean[][] visited = new boolean[row][col];
         
@@ -15,11 +13,14 @@ class Solution {
         
         ArrayDeque<int[]> q = new ArrayDeque<>();
         q.offer(new int[]{0, 0});
+        visited[0][0] = true;
         
         while (!q.isEmpty()) {
             int[] cur = q.poll();
             int r = cur[0];
             int c = cur[1];
+            
+            if (r == row - 1 && c == col - 1) return grid[r][c] + 1;
             
             for (int i = 0; i < 4; i++) {
                 int nr = r + dr[i];
@@ -35,8 +36,6 @@ class Solution {
             }
         }
         
-        if (grid[row - 1][col - 1] == 0) return -1;
-        
-        return grid[row - 1][col - 1] + 1;
+        return -1;
     }
 }
