@@ -2,14 +2,13 @@ import java.util.*;
 
 class Solution {
     public int solution(int[][] maps) {
+        int row = maps.length;
+        int col = maps[0].length;
         
-        int n = maps.length;
-        int m = maps[0].length;
+        if (row == 1 && col == 1) return 1;
         
-        if (n == 1 && m == 1) return 1;
-        
-        int[][] distances = new int[n][m];
-        distances[0][0] = 1;
+        int[][] grid = new int[row][col];
+        boolean[][] visited = new boolean[row][col];
         
         int[] dr = {1, -1, 0, 0};
         int[] dc = {0, 0, 1, -1};
@@ -26,15 +25,18 @@ class Solution {
                 int nr = r + dr[i];
                 int nc = c + dc[i];
                 
-                if (nr < 0 || nr >= n || nc < 0 || nc >= m) continue;
-                if (distances[nr][nc] > 0) continue;
+                if (nr < 0 || nr >= row || nc < 0 || nc >= col) continue;
+                if (visited[nr][nc]) continue;
                 if (maps[nr][nc] == 0) continue;
                 
-                distances[nr][nc] = distances[r][c] + 1;
+                grid[nr][nc] = grid[r][c] + 1;
+                visited[nr][nc] = true;
                 q.offer(new int[]{nr, nc});
             }
         }
         
-        return distances[n - 1][m - 1] == 0 ? -1 : distances[n - 1][m - 1];
+        if (grid[row - 1][col - 1] == 0) return -1;
+        
+        return grid[row - 1][col - 1] + 1;
     }
 }
