@@ -16,13 +16,8 @@ class Solution {
                 cache.add(city);
                 total += 1;
             } else {
-                if (cache.size() == cacheSize) {
-                    cache.remove(0);
-                    cache.add(city);
-                } else if (cache.size() < cacheSize) {
-                    cache.add(city);
-                }
-                
+                if (cache.size() == cacheSize) cache.remove(0);
+                cache.add(city);
                 total += 5;
             }
         }
